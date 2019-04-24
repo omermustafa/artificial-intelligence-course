@@ -21,13 +21,63 @@
 # Helping, speaking, bedroom, purple, jokes
 
 
-import nltk
-nltk.download()
+from nltk.tokenize import sent_tokenize, word_tokenize
+from nltk.stem import PorterStemmer, WordNetLemmatizer
+from nltk.corpus import wordnet
 
-from nltk.corpus import stopwords
-from nltk.tokenize import word_tokenize
+def tokenize_data_word(file):
+    try:
+        with open(file, 'r') as infile:
+            for line in infile:
+                return word_tokenize(line)
+    except FileNotFoundError as identifier:
+        print(identifier)
 
-my_sent = "Hi man, how have you been?"
-tokens = word_tokenize(my_sent)
+def tokenize_data_sentence(file):
+    try:
+        with open(file, 'r') as infile:
+            for line in infile:
+                return sent_tokenize(line)
+    except FileNotFoundError as identifier:
+        print(identifier)
 
-print(tokens)
+def word_stemming():
+    ps = PorterStemmer()
+    words = ['Helping', 'speaking', 'bedroom', 'purple', 'jokes']
+    word_token = tokenize_data_word('data.txt')
+    for word in word_token:
+        print(ps.stem(word))
+
+def word_lemmatize():
+    lemmatizer = WordNetLemmatizer()
+    words = ['Helping', 'speaking', 'bedroom', 'purple', 'jokes']
+    word_token = tokenize_data_word('abc.txt')
+    for word in word_token:
+        print(lemmatizer.lemmatize(word))
+
+def word_synonyms():
+    synonym_words = ['Facilitate', 'flourish', 'bridge', 'warm', 'expansion']
+
+    for word in synonym_words:
+        for syn in wordnet.synsets(word):
+            for l in syn.lemmas():
+                print(l.name(), word)
+
+def word_antonyms():
+    antonym_words = ['Global', 'largest', 'dominant', 'alliance', 'continue']
+
+    for word in antonym_words:
+        for syn in wordnet.synsets(word):
+            for l in syn.lemmas():
+                if l.antonyms():
+                    print(l.antonyms()[0].name())
+
+# Uncomment the following line to run the functions
+# print(tokenize_data_word('abc.txt'))
+# print(tokenize_data_sentence('abc.txt'))
+# word_stemming()
+# word_lemmatize()
+# word_synonyms_antonyms()
+word_antonyms()
+
+
