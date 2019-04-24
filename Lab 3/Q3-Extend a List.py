@@ -1,0 +1,11 @@
+# Omer Mustafa - F2016-472
+# Artificial Intelligence by Dr. Iftikhar Hussain
+# Lab no. 3 - Question no.3
+# Write a Python program to extend a list without append.
+# Sample data: [10, 20, 30] , [40, 50, 60]
+# Expected output: [40, 50, 60, 10, 20, 30]
+
+list1 = [10, 20, 30]
+list2 = [40, 50, 60]
+list1[:0] = list2
+print(list1)
